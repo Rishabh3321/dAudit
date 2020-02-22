@@ -119,5 +119,26 @@ contract dAudit
         return len;
     }
     
+    function checkUser (address user) public view returns(string memory)
+    {
+        string memory res;
+
+        if(user==universityHead.add)
+            res = "university";
+        else if(user==collegeHead.add)
+            res = "college";
+        else if(user==culturalHead.add)
+            res = "cultural";
+        else if(user==academicsHead.add)
+            res = "academics";
+        else if(user==sportsHead.add)
+            res = "sports";
+        else if(user==maintenanceHead.add)
+            res = "maintenance";
+        else
+            res = "student";
+
+        return res;
+    }
 
 }

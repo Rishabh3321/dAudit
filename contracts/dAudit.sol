@@ -141,4 +141,10 @@ contract dAudit
         return res;
     }
 
+    function updateBalance(string memory rec,string memory add,int amt) public
+    {
+        accountHolder storage acc = getAccount[add];
+        acc.bal -= amt;
+        acc.reciept.push(rec);
+    }
 }

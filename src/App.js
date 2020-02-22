@@ -11,9 +11,12 @@ class App extends Component {
       this.state={
         web3:null,
         contract:null,
-        account:null
+        account:null,
+        accounts:null,
+        isCollegePageClicked:false,
+        isChildPage:false
       }
-
+      this.handleCollegePageFalse.bind(this);
   }
 componentDidMount = async ()=> {
   try{
@@ -37,6 +40,23 @@ componentDidMount = async ()=> {
         console.error(error);
       }
 }
+  handleCollegePageFalse = ()=>{
+    this.setState({isCollegePageClicked:false});
+    this.setState({isChildPage:true});
+    console.log("hiii",this.state.isCollegePageClicked);
+  }
+
+  handleCollegePageTrue = ()=>{
+    this.setState({isCollegePageClicked:true});
+    this.setState({isChildPage:false});
+    console.log("hello",this.state.isCollegePageClicked);
+  }
+
+  getAccount = async () => {
+      const web3=this.state.web3;
+      const accounts=this.state.accounts;
+      this.setState({account:accounts[0]});
+  }
   render() {
     if(!this.state.web3)
     return <div><p>Failed to load web3, accounts, or contract.</p></div>
@@ -50,15 +70,15 @@ componentDidMount = async ()=> {
               <button class="nav-link active"><Link to='/home'>Home</Link></button>
             </li>
             <li class="nav-item">
-            <button class="nav-link active"><Link to='/college'>College</Link></button>
+            <button class="nav-link active"><Link to='/college' onClick={this.handleCollegePageTrue} >College</Link></button>
             </li>
           </ul>
           <Switch>
             <Route path='/home'>
-              <Home />
+              <Home passedStates={this.state} />
             </Route>
             <Route path='/college'>
-              <College />
+              <College passedStates={this.state} colPage={this.handleCollegePageFalse} />
             </Route>
             </Switch>
           </div>
